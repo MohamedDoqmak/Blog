@@ -51,9 +51,16 @@
                     <div class="space-y-4 lg:text-lg leading-loose">{!! $post->body !!}</div>
                 </div>
 
+                @auth
                 <section class="col-span-8 col-start-5 mt-10 space-y-6">
                     @include('posts._add-comment-form')
                 </section>
+                @else
+                <p class="font-bold">
+                   <a href="/register" class="hover:underline">Register</a> or <a href="/login" class="hover:underline">Login to leave a comment.</a>
+                </p>
+
+                @endauth
 
                 <section class="col-span-8 col-start-5 mt-10 space-y-6">
                     @foreach ($post->comments as $comment)
