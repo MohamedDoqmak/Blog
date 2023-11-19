@@ -51,35 +51,9 @@
                     <div class="space-y-4 lg:text-lg leading-loose">{!! $post->body !!}</div>
                 </div>
 
-                @auth
                 <section class="col-span-8 col-start-5 mt-10 space-y-6">
-                    <x-box>
-                        <form method="POST" action="/posts/{{$post->slug}}/comments">
-                            @csrf
-                            <header class="felx items-center">
-                                <img src="https://i.pravatar.cc/60?u={{ auth()->id() }}" alt="" width="40" height="40"
-                                    class="rounded-full">
-                                <h2 class="mt-5">Add a comment here!</h2>
-                            </header>
-                            <div class="mt-6">
-                                <textarea name="body" class="w-full text-sm focus:outline-none focus:ring" cols="30"
-                                    rows="10" placeholder="Write your comment here"></textarea>
-                            </div>
-
-                            <div class="flex justify-end mt-6 pt-6 border-t border-gray-200">
-                                <button type="submit"
-                                    class="bg-blue-400 text-white uppercase font-semibold text-sm rounded-2xl py-2 px-4 hover:bg-blue-600">Submit</button>
-                            </div>
-                        </form>
-                    </x-box>
-
+                    @include('posts._add-comment-form')
                 </section>
-                @else
-                <p class="font-bold">
-                   <a href="/register" class="hover:underline">Register</a> or <a href="/login" class="hover:underline">Login to leave a comment.</a>
-                </p>
-
-                @endauth
 
                 <section class="col-span-8 col-start-5 mt-10 space-y-6">
                     @foreach ($post->comments as $comment)
