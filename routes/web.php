@@ -7,6 +7,7 @@ use App\Http\Controllers\PostCommentsController;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,20 +20,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('ping', function () {
-
+Route::post('newsletter', function () {
+    request()->validate([
+        'email' => ['required', 'email']
+    ]);
     $mailchimp = new \MailchimpMarketing\ApiClient();
 
     $mailchimp->setConfig([
         'apiKey' => config('services.mailchimp.key'),
         'server' => 'us14'
     ]);
-
-    $response = $mailchimp->lists->addListMember("b37f46840e", [
-        "email_address" => "doqmak69420@gmail.com",
-        "status" => "subscribed"
-    ]);
-    dd($response);
+    try {
+        $response = $mailchimp->lists->addListMember("b37f46840e", [
+            "email_address" => request('email'),
+            "status" => "subscribed"
+        ]);
+    } catch (\Exception $e) {
+        ValidationException::withMessages([
+            'email' => 'This email couldnt be added to our news letter'
+        ]);
+    }
+    return redirect('/')->with('success', 'you are now subscried to our newsletter');
 });
 
 Route::get('/', [PostController::class, 'index'])->name('home');
