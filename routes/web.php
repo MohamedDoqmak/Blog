@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('ping',function(){
+Route::get('ping', function () {
 
     $mailchimp = new \MailchimpMarketing\ApiClient();
 
@@ -37,19 +37,21 @@ Route::get('ping',function(){
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
-Route::post('posts/{post:slug}/comments',[PostCommentsController::class,'store']);
+Route::post('posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
 Route::get('authors/{author:username}', function (User $author) {
     return view('posts.index', [
         'posts' => $author->posts
     ]);
 });
-Route::get('register',[RegisterController::class,'create'])->middleware('guest');
-Route::post('register',[RegisterController::class,'store'])->middleware('guest');
 
+Route::middleware('guest')->group(function () {
+    Route::get('register', [RegisterController::class, 'create']);
+    Route::post('register', [RegisterController::class, 'store']);
+    Route::post('sessions', [SessionsController::class, 'store']);
+    Route::get('login', [SessionsController::class, 'create']);
+});
 
-Route::post('sessions',[SessionsController::class,'store'])->middleware('guest');
-Route::get('login',[SessionsController::class,'create'])->middleware('guest');
-Route::post('logout',[SessionsController::class,'destroy'])->middleware('auth');
+Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
 
