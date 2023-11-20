@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SessionsRequest;
 use Illuminate\Validation\ValidationException;
 
 class SessionsController extends Controller
 {
-    public function store()
+    public function store(SessionsRequest $request)
     {
-        $credentials = request()->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required']
-        ]);
+        $credentials = $request->validated();
 
         if (auth()->attempt($credentials)) {
             session()->regenerate();
