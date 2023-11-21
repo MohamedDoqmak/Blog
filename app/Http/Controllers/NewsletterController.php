@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\MailchimpNewsletter;
 use App\Services\Newsletter;
-use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Validation\ValidationException;
 
