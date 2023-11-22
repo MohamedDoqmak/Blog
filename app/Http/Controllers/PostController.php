@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Http\Requests\StorepostRequest;
 use App\Http\Requests\UpdatepostRequest;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -22,6 +23,19 @@ class PostController extends Controller
         return view('posts.show', [
             'post' => $post
         ]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+    public function store(StorepostRequest $request)
+    {
+        $attributes = $request->validated();
+
+        Post::create($attributes);
+
+        return redirect('/');
     }
 
 

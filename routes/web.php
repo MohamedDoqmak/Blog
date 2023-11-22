@@ -43,5 +43,6 @@ Route::middleware('guest')->group(function () {
 
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
-Route::get('admin/posts/create', [PostCommentsController::class, 'create'])->middleware('admin');
+Route::get('admin/posts/create', [PostController::class, 'create'])->middleware('admin');
+Route::post('admin/posts', [PostController::class, 'store'])->middleware('admin');
 
