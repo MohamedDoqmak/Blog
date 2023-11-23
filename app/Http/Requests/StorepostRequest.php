@@ -25,12 +25,13 @@ class StorepostRequest extends FormRequest
     public function rules()
     {
         return [
-                'user_id' => ['required'],
-                'title' => ['required'],
-                'slug' => ['required', Rule::unique('posts', 'slug')],
-                'excerpt' => ['required'],
-                'body' => ['required'],
-                'category_id' => ['required', Rule::exists('categories', 'id')],
+            'user_id' => ['required'],
+            'title' => ['required'],
+            'slug' => ['required', Rule::unique('posts', 'slug')],
+            'excerpt' => ['required'],
+            'thumbnail' => ['required', 'image'],
+            'body' => ['required'],
+            'category_id' => ['required', Rule::exists('categories', 'id')],
         ];
     }
 }

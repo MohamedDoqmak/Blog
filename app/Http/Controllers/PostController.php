@@ -32,7 +32,7 @@ class PostController extends Controller
     public function store(StorepostRequest $request)
     {
         $attributes = $request->validated();
-
+        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
         Post::create($attributes);
 
         return redirect('/');

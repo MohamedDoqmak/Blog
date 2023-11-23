@@ -1,7 +1,10 @@
 <x-layout>
-    <section class="px-6 py-8">
-        <x-box class="max-w-sm mx-auto">
-            <form method="POST" action="/admin/posts">
+    <section class="py-8 max-w-md mx-auto">
+        <h1 class="text-lg font-bold mb-4">
+            Publish New Post
+        </h1>
+        <x-box>
+            <form method="POST" action="/admin/posts" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" id="user_id" name="user_id" value="{{ auth()->id() }}">
                 <div class="mb-6">
@@ -33,12 +36,19 @@
                         {{ __('excerpt') }}
                     </label>
 
-                    <textarea class="w-full p-2 border border-gray-400 rounded" id="excerpt" name="excerpt" value=""
-                        required>
-                    </textarea>
+                    <textarea class="w-full p-2 border border-gray-400 rounded" id="excerpt" name="excerpt"
+                        value="{{ old('excerpt') }}" required></textarea>
                     @error('excerpt')
                     <span class="text-xs text-red-600 font-semibold">{{ $message }}</span>
                     @enderror
+                </div>
+
+                <div class="mb-6">
+                    <label class="block mb-2 text-xs font-bold text-gray-700 uppercase" for="thumbnail">
+                        {{ __('thumbnail') }}
+                    </label>
+                    <input class="w-full p-2 border border-gray-400 rounded" type="file" id="thumbnail" name="thumbnail"
+                        value="" required>
                 </div>
 
                 <div class="mb-6">
@@ -46,8 +56,8 @@
                         {{ __('body') }}
                     </label>
 
-                    <textarea class="w-full p-2 border border-gray-400 rounded" id="body" name="body" value="" required>
-                    </textarea>
+                    <textarea class="w-full p-2 border border-gray-400 rounded" id="body" name="body"
+                        value="{{ old('body') }}" required></textarea>
 
                     @error('body')
                     <span class="text-xs text-red-600 font-semibold">{{ $message }}</span>
