@@ -26,11 +26,11 @@ class StorepostRequest extends FormRequest
     {
         return [
             'user_id' => ['required'],
-            'title' => ['required'],
-            'slug' => ['required', Rule::unique('posts', 'slug')],
-            'excerpt' => ['required'],
+            'title' => ['required','min:6'],
+            'slug' => ['required','min:6', Rule::unique('posts', 'slug')],
+            'excerpt' => ['required','min:6'],
             'thumbnail' => ['required', 'image'],
-            'body' => ['required'],
+            'body' => ['required','min:6'],
             'category_id' => ['required', Rule::exists('categories', 'id')],
         ];
     }
