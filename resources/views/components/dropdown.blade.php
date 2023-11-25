@@ -1,6 +1,6 @@
 @props(['trigger'])
 {{-- this `x-data` is Alpine.js, it's a lightweight JavaScript framework --}}
-<div x-data="{ show: false }" @click.away="show=false">
+<div x-data="{ show: false }" @click.away="show=false" class="relative">
     {{-- Trigger --}}
     <div @click="show =! show">
         {{ $trigger }}
