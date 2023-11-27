@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StorepostRequest extends FormRequest
+class PostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +26,11 @@ class StorepostRequest extends FormRequest
     {
         return [
             'user_id' => ['required'],
-            'title' => ['required','min:6'],
-            'slug' => ['required','min:6', Rule::unique('posts', 'slug')],
-            'excerpt' => ['required','min:6'],
-            'thumbnail' => ['required', 'image'],
-            'body' => ['required','min:6'],
+            'title' => ['required', 'min:6'],
+            'slug' => ['required', 'min:6'],
+            'excerpt' => ['required', 'min:6'],
+            'thumbnail' => ['image'],
+            'body' => ['required', 'min:6'],
             'category_id' => ['required', Rule::exists('categories', 'id')],
         ];
     }

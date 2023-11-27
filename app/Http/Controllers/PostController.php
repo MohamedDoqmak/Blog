@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Post;
-use App\Http\Requests\StorepostRequest;
-use App\Http\Requests\UpdatepostRequest;
-use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -24,20 +20,5 @@ class PostController extends Controller
             'post' => $post
         ]);
     }
-
-    public function create()
-    {
-        return view('posts.create');
-    }
-    public function store(StorepostRequest $request)
-    {
-        $attributes = $request->validated();
-        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
-        Post::create($attributes);
-
-        return redirect('/');
-    }
-
-
 
 }

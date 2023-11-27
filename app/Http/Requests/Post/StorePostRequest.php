@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Post;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdatepostRequest extends FormRequest
+class StorePostRequest extends PostRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdatepostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,11 @@ class UpdatepostRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        $rules = parent::rules();
+
+        $rules['slug'][] = Rule::unique('posts', 'slug');
+        $rules['thumbnail'][]='required';
+
+        return $rules;
     }
 }
